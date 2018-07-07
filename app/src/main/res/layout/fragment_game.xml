@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="2"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/dice_one"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"
+            />
+        <ImageButton
+            android:id="@+id/dice_two"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"
+             />
+        <ImageButton
+            android:id="@+id/dice_three"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"
+            />
+        <ImageButton
+            android:id="@+id/dice_four"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"
+             />
+        <ImageButton
+            android:id="@+id/dice_five"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"/>
+        <ImageButton
+            android:id="@+id/dice_six"
+            android:background="@color/white"
+            android:padding="24dp"
+            android:layout_gravity="center"
+            />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/game_textview_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:textColor="#000"/>
+    <TextView
+        android:id="@+id/game_textview_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:textColor="#000"/>
+
+    <TextView
+            android:id="@+id/game_textview_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="#000"/>
+
+        <TextView
+            android:id="@+id/game_textview_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="#000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+
+        <Spinner
+            android:id="@+id/game_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:layout_weight="0"
+            />
+
+        <Button
+            android:id="@+id/game_sum_choice_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_weight="0"
+            android:text="Make choice!"
+            />
+
+        <Button
+            android:id="@+id/roll_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/roll_button"
+            android:layout_weight="0"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

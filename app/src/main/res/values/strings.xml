@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ThirtyGame</string>
+    <string name="roll_button">Roll dices!</string>
+    <string name="ten_rounds">You have already played 10 times!</string>
+    <string name="turn">Turn: </string>
+    <string name="roll">Roll (out of 3): </string>
+    <string name="just_roll">Roll new dices!</string>
+    <string name="keep_dices">Select dices to keep and then roll again.</string>
+    <string name="how_to_add">Select how to add the dices in the dropdown below, then click the make choice button to continue.</string>
+    <string name="points_turn">Points for last turn: </string>
+
+</resources>
