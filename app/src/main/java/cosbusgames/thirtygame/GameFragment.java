@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
     private String[] mSpinnerItems;
     private static final String KEY_SPINNER = "spinner";
     private SharedPreferences activityPreferences;
+    private static final String TAG = "ThirtyGame";
 
     private List<String> mSpinnerList;
 
@@ -45,6 +48,7 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate called");
             mThirtyGame = new ThirtyGame();
             mDiceButtons = new ArrayList<ImageButton>();
             mSpinnerItems = new String[]{"Choose", "Low", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
@@ -62,20 +66,37 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game, container, false);
 
+        Log.d(TAG, "onCreateView called");
+        mThirtyGame = new ThirtyGame();
+        mDiceButtons = new ArrayList<ImageButton>();
+        mSpinnerItems = new String[]{"Choose", "Low", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        // Load saved instancestate if it exist
+        if(savedInstanceState != null){
+            Log.d(TAG, "Went in and got savedinstancestate");
+            mThirtyGame = savedInstanceState.getParcelable(KEY_THIRTYGAME);
+            mSpinnerItems = savedInstanceState.getStringArray(KEY_SPINNER);
+        }
+        mSpinnerList = new ArrayList<>(Arrays.asList(mSpinnerItems));
+
         // Set up the dicebuttons
+        Log.d(TAG, "Setting up dicebuttons");
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_one));
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_two));
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_three));
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_four));
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_five));
         mDiceButtons.add((ImageButton) v.findViewById(R.id.dice_six));
+        Log.d(TAG, "mDiceButtons.size()="+mDiceButtons.size());
         for (mIndex = 0; mIndex < mDiceButtons.size(); mIndex++) {
+            Log.d(TAG, "setting listeners on button");
             mDiceButtons.get(mIndex).setOnClickListener(this);
+            Log.d(TAG, "before drawDiceButtons");
             drawDiceButtons(mIndex);
             mDiceButtons.get(mIndex).setEnabled(false);         // Initially disabled
         }
 
         // Set up roll button
+        Log.d(TAG, "Setting up roll button");
         mRollButton = (Button) v.findViewById(R.id.roll_button);
         mRollButton.setOnClickListener(this);
 
@@ -218,11 +239,19 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
 
     // Draws the dicebuttons depending on the dice value
     public void drawDiceButtons(int diceButtonNumber) {
+        Log.d(TAG, "inside drawDiceButtons");
+        Log.d(TAG, "mThirtyGame.getDiceValues().size = "+mThirtyGame.getDiceValues().size());
+
+        Log.d(TAG, "mThirtyGame.getDiceMarked().get(diceButtonNumber))="+mThirtyGame.getDiceMarked().get(diceButtonNumber));
+
+
         if (mThirtyGame.getDiceMarked().get(diceButtonNumber)) {
             String mDrawableName = "grey" + mThirtyGame.getDiceValues().get(diceButtonNumber);
             mResID = getResources().getIdentifier(mDrawableName, "drawable", getContext().getPackageName());
             mDiceButtons.get(diceButtonNumber).setImageResource(mResID);
         } else {
+            Log.d(TAG, "mThirtyGame.getDiceValues().get(diceButtonNumber))="+mThirtyGame.getDiceValues().get(diceButtonNumber));
+
             String mDrawableName = "white" + mThirtyGame.getDiceValues().get(diceButtonNumber);
             mResID = getResources().getIdentifier(mDrawableName, "drawable", getContext().getPackageName());
             mDiceButtons.get(diceButtonNumber).setImageResource(mResID);
@@ -255,17 +284,53 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
     // Save instancestate
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG, "onSaveInstanceState called");
         savedInstanceState.putParcelable(KEY_THIRTYGAME, mThirtyGame);
         savedInstanceState.putStringArray(KEY_SPINNER,mSpinnerItems);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated called");
+        /*if(savedInstanceState != null){
+            mThirtyGame = savedInstanceState.getParcelable(KEY_THIRTYGAME);
+            mSpinnerItems = savedInstanceState.getStringArray(KEY_SPINNER);
+        }*/
     }
 
     @Override
     // Save as shared preference (for back-button etc.)
     public void onPause(){
         super.onPause();
-        activityPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Log.d(TAG, "onPause called");
+        /*activityPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = activityPreferences.edit();
         editor.putStringSet(KEY_SPINNER,mSpinnerItems);
+*/
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG, "onResume called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy called");
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart called");
     }
 }

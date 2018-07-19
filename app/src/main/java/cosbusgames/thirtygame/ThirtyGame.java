@@ -18,7 +18,7 @@ public class ThirtyGame implements Parcelable {
     private String mChoice;
     private int mSum;
     private int mPointLatestTurn;
-    private int mData;
+
 
     private String[] mPoints;
 
@@ -43,7 +43,15 @@ public class ThirtyGame implements Parcelable {
 
         /** save object in parcel */
         public void writeToParcel(Parcel out, int flags) {
-            out.writeInt(mData);
+            out.writeTypedList(mDices);
+            out.writeInt(this.mTurn);
+            out.writeInt(this.mRoll);
+            out.writeByte((byte) (mChoiceMade ? 1 : 0));
+            out.writeList(mSums);
+            out.writeString(this.mChoice);
+            out.writeInt(this.mSum);
+            out.writeArray(mPoints);
+            out.writeInt(mPointLatestTurn);
         }
 
         public static final Parcelable.Creator<ThirtyGame> CREATOR
@@ -59,7 +67,20 @@ public class ThirtyGame implements Parcelable {
 
         /** recreate object from parcel */
         private ThirtyGame(Parcel in) {
-            mData = in.readInt();
+            this();
+            in.readTypedList(this.mDices, Dice.CREATOR);
+            this.mTurn = in.readInt();
+            this.mRoll = in.readInt();
+            this.mChoiceMade = in.readByte() != 0;
+            this.mSums = in.readArrayList(null);
+            this.mChoice = in.readString();
+            this.mSum = in.readInt();
+            Object[] objects = in.readArray(null);
+            mPoints = new String[objects.length];
+            for (int i=0;i<mPoints.length; i++){
+                this.mPoints[i] = (String) objects[i];
+            }
+            this.mPointLatestTurn = in.readInt();
         }
 
 
