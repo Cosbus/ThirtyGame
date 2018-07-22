@@ -92,7 +92,8 @@ public class GameFragment extends Fragment implements View.OnClickListener, Adap
             mDiceButtons.get(mIndex).setOnClickListener(this);
             Log.d(TAG, "before drawDiceButtons");
             drawDiceButtons(mIndex);
-            mDiceButtons.get(mIndex).setEnabled(false);         // Initially disabled
+            if(savedInstanceState == null)
+                mDiceButtons.get(mIndex).setEnabled(false);         // Initially disabled
         }
 
         // Set up roll button
